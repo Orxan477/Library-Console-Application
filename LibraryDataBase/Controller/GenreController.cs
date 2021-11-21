@@ -39,19 +39,21 @@ namespace LibraryDataBase.Controller
                 //Console.WriteLine(author.Name);
             }
         }
-        public void Remove(Genre entity)
+        public void Remove(string name)
         {
             using (var db = new Context())
             {
-                db.Remove<Genre>(entity);
+                Genre genre = db.Genres.Where(x => x.Name == name).Single<Genre>();
+                db.Genres.Update(genre);
                 db.SaveChanges();
             }
         }
-        public void Update(Genre entity)
+        public void Update(string name)
         {
             using (var db = new Context())
             {
-                db.Update<Genre>(entity);
+                Genre genre = db.Genres.Where(x => x.Name == name).Single<Genre>();
+                db.Genres.Update(genre);
                 db.SaveChanges();
             }
         }

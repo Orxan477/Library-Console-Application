@@ -8,7 +8,7 @@ namespace LibraryDataBase.Business.Absract
     {
         void SelectName(string name);
         void GetInfo();
-        void Remove(T entity);
-        void Update(T entity);
+        void Remove(string name);
+        void Update(string name);
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace LibraryDataBase
 {
@@ -42,7 +43,7 @@ namespace LibraryDataBase
                         break;
                     case 2:
                         Console.WriteLine("-----------------");
-                         Info:
+                    Info:
                         Console.WriteLine("1.All Books Information\n2.Book search\n3.Author search" +
                                           "\n4.Genre search\n5.Home Page\n--------------");
                         string info = Console.ReadLine();
@@ -58,10 +59,10 @@ namespace LibraryDataBase
                                 string searchName = Console.ReadLine();
                                 bookController.SelectName(searchName);
                                 break;
-                            case 3:                              
-                                    Console.Write("Enter author: ");
-                                    string searchAuthor = Console.ReadLine();
-                                    authorController.SelectName(searchAuthor);                               
+                            case 3:
+                                Console.Write("Enter author: ");
+                                string searchAuthor = Console.ReadLine();
+                                authorController.SelectName(searchAuthor);
                                 break;
                             case 4:
                                 Console.Write("Enter genre: ");
@@ -77,27 +78,39 @@ namespace LibraryDataBase
                                 Console.WriteLine("Please correct input!!!");
                                 goto Info;
                         }
-                        
+
                         break;
                     #region MyRegion
-                    //case 3:
-                    //    Console.WriteLine("--------------");
-                    //    Console.WriteLine("1.Book\n2.Author\n3.Genre");
-                    //    string opinputt = Console.ReadLine();
-                    //    int n = int.Parse(opinputt);
-                    //    switch (n)
-                    //    {
-                    //        case 1:
-                    //            Book book = new Book();
-                    //            book.Name = Console.ReadLine();
-                    //            bookController.Update(book);
-                    //            break;
-                    //        default:
-                    //            break;
-                    //    }
-                    //    break;
-                    //case 4:
-                    //    break;
+                    case 3:
+                        Console.WriteLine("--------------");
+                        Console.WriteLine("1.Book\n2.Author\n3.Genre");
+                        string opinputt = Console.ReadLine();
+                        int n = int.Parse(opinputt);
+                        switch (n)
+                        {
+                            case 1:
+                                string name = Console.ReadLine();
+                                bookController.Update(name);
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case 4:
+                        Console.WriteLine("--------------");
+                        Console.WriteLine("1.Book\n2.Author\n3.Genre");
+                        string remove = Console.ReadLine();
+                        int removenumber = int.Parse(remove);
+                        switch (removenumber)
+                        {
+                            case 1:
+                                string name = Console.ReadLine();
+                                bookController.Remove(name);
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
                     #endregion
                     case 5:
                         return;
@@ -155,6 +168,8 @@ namespace LibraryDataBase
             }
 
         }
+
+        
     }
 }
 

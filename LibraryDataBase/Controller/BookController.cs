@@ -55,20 +55,22 @@ namespace LibraryDataBase.Controller
             }
         }
 
-        public void Remove(Book entity)
+        public void Remove(string name)
         {
             using (var db = new Context())
             {
-                db.Update<Book>(entity);
+                Book book = db.Books.Where(x => x.Name == name).Single<Book>();
+                db.Books.Remove(book);
                 db.SaveChanges();
             }
         }
 
-        public void Update(Book entity)
+        public void Update(string name)
         {
             using (var db = new Context())
             {
-                db.Remove<Book>(entity);
+                Book book = db.Books.Where(x => x.Name == name).Single<Book>();
+                db.Books.Update(book);               
                 db.SaveChanges();
             }
         }
