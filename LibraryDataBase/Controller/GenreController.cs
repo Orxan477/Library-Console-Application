@@ -44,7 +44,7 @@ namespace LibraryDataBase.Controller
             using (var db = new Context())
             {
                 Genre genre = db.Genres.Where(x => x.Name == name).Single<Genre>();
-                db.Genres.Update(genre);
+                db.Genres.Remove(genre);
                 db.SaveChanges();
             }
         }

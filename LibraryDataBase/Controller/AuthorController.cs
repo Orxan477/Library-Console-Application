@@ -49,7 +49,7 @@ namespace LibraryDataBase.Controller
             using(var db=new Context())
             {
                 Author author = db.Authors.Where(x => x.Name == name).Single<Author>();
-                db.Authors.Update(author);
+                db.Authors.Remove(author);
                 db.SaveChanges();
             }
         }

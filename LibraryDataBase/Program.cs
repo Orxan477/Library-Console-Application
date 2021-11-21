@@ -53,22 +53,22 @@ namespace LibraryDataBase
                             case 1:
                                 Console.WriteLine("----------------------");
                                 bookController.GetInfo();
-                                break;
+                                goto Info;
                             case 2:
                                 Console.Write("Enter name: ");
                                 string searchName = Console.ReadLine();
                                 bookController.SelectName(searchName);
-                                break;
+                                goto Info;
                             case 3:
                                 Console.Write("Enter author: ");
                                 string searchAuthor = Console.ReadLine();
                                 authorController.SelectName(searchAuthor);
-                                break;
+                                goto Info;
                             case 4:
                                 Console.Write("Enter genre: ");
                                 string searchgenre = Console.ReadLine();
                                 genreController.SelectName(searchgenre);
-                                break;
+                                goto Info;
                             case 5:
                                 Console.WriteLine("Home Page");
                                 goto TryAgain;
@@ -106,6 +106,14 @@ namespace LibraryDataBase
                             case 1:
                                 string name = Console.ReadLine();
                                 bookController.Remove(name);
+                                break;
+                            case 2:
+                                string author = Console.ReadLine();
+                                authorController.Remove(author);
+                                break;
+                            case 3:
+                                string genre = Console.ReadLine();
+                                genreController.Remove(genre);
                                 break;
                             default:
                                 break;
@@ -169,7 +177,7 @@ namespace LibraryDataBase
 
         }
 
-        
+
     }
 }
 

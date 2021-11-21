@@ -16,18 +16,28 @@ namespace LibraryDataBase.Controller
         {
             using (var db = new Context())
             {
+                
                 var books = db.Books
                     .Include(n => n.BookAuthors).ThenInclude(n => n.Author)
                     .Include(n => n.BookGenres).ThenInclude(n => n.Genre)
                     .Where(n => n.Name.Trim().ToLower().Contains(name.Trim().ToLower()));
-                foreach (var book in books)
+                bool isExist = books.Any(n => n.Name.Trim().ToLower() == name.Trim().ToLower());
+                if (isExist)
                 {
-                    foreach (var bookAuthor in book.BookAuthors)
+                    foreach (var book in books)
                     {
-                        Console.WriteLine($"Book Id:{bookAuthor.Book.Id}\nBook Name:{bookAuthor.Book.Name}");
+                        foreach (var bookAuthor in book.BookAuthors)
+                        {
+                            Console.WriteLine($"Book Id:{bookAuthor.Book.Id}\nBook Name:{bookAuthor.Book.Name}");
+                        }
                     }
-
                 }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Not Found Book");
+                    Console.WriteLine("----------------");
+                }        
             }
         }
         public void GetInfo()
