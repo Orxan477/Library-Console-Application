@@ -37,8 +37,7 @@ namespace LibraryDataBase
                         Console.Write("Enter Author Name: ");
                         string authorName = Console.ReadLine();
                         Console.WriteLine("------------");
-                        genreController.GetInfo();
-                        Console.Write("Enter Genre GenreId: ");
+                        Console.Write("Enter Genre Name: ");
                         string genreName = Console.ReadLine();                    
                         AddBook(bookName, authorName,genreName);
                         Console.WriteLine("---------------------");
