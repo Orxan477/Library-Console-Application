@@ -3,9 +3,7 @@ using LibraryDataBase.DAL;
 using LibraryDataBase.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace LibraryDataBase.Controller
 {
@@ -31,9 +29,19 @@ namespace LibraryDataBase.Controller
                 var genre = db.BookGenres
                     .Include(n => n.Genre).Include(n => n.Book)
                     .Where(n => n.Genre.Name.Trim().ToLower().Contains(name.Trim().ToLower()));
-                foreach (var genreName in genre)
+                bool isExist = genre.Any(n => n.Genre.Name.Trim().ToLower() == name.Trim().ToLower());
+                if (isExist)
                 {
-                    Console.WriteLine($"Book Id:{genreName.Book.Id}\nBook Name:{genreName.Book.Name}");
+                    foreach (var genreName in genre)
+                    {
+                        Console.WriteLine($"Book Id:{genreName.Book.Id}\nBook Name:{genreName.Book.Name}");
+                    }
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Not Found Genre");
+                    Console.WriteLine("----------------");
                 }
                 //var author = db.Authors.Single(a => a.Name == "Muellifli");
                 //Console.WriteLine(author.Name);
@@ -41,21 +49,43 @@ namespace LibraryDataBase.Controller
         }
         public void Remove(string name)
         {
-            using (var db = new Context())
+            try
             {
-                Genre genre = db.Genres.Where(x => x.Name == name).Single<Genre>();
-                db.Genres.Remove(genre);
-                db.SaveChanges();
+                using (var db = new Context())
+                {
+                    Genre genre = db.Genres.Where(x => x.Name == name).Single<Genre>();
+                    db.Genres.Remove(genre);
+                    db.SaveChanges();
+                    Console.WriteLine($"{name} Removed");
+                }
             }
+            catch (Exception)
+            {
+                Console.Clear();
+                Console.WriteLine($"Not Found {name}");
+                Console.WriteLine("----------------");
+            }
+
         }
         public void Update(string name)
         {
-            using (var db = new Context())
+            try
             {
-                Genre genre = db.Genres.Where(x => x.Name == name).Single<Genre>();
-                db.Genres.Update(genre);
-                db.SaveChanges();
+                using (var db = new Context())
+                {
+                    Genre genre = db.Genres.Where(x => x.Name == name).Single<Genre>();
+                    db.Genres.Update(genre);
+                    db.SaveChanges();
+                    Console.WriteLine($"{name} Updated");
+                }
             }
+            catch (Exception)
+            {
+                Console.Clear();
+                Console.WriteLine($"Not Found {name}");
+                Console.WriteLine("----------------");
+            }
+
         }
     }
 }

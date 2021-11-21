@@ -4,9 +4,7 @@ using LibraryDataBase.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace LibraryDataBase.Controller
 {
@@ -64,25 +62,47 @@ namespace LibraryDataBase.Controller
                 }
             }
         }
-
         public void Remove(string name)
         {
-            using (var db = new Context())
+            try
             {
-                Book book = db.Books.Where(x => x.Name == name).Single<Book>();
-                db.Books.Remove(book);
-                db.SaveChanges();
+                using (var db = new Context())
+                {
+                    Book book = db.Books.Where(x => x.Name == name).Single<Book>();
+                    db.Books.Remove(book);
+                    db.SaveChanges();
+                    Console.WriteLine($"{name} Removed");
+                }
             }
+            catch (Exception)
+            {
+                Console.Clear();
+                Console.WriteLine($"Not Found {name}");
+                Console.WriteLine("----------------");
+            }
+            
         }
 
         public void Update(string name)
         {
-            using (var db = new Context())
+            try
             {
-                Book book = db.Books.Where(x => x.Name == name).Single<Book>();
-                db.Books.Update(book);               
-                db.SaveChanges();
+                using (var db = new Context())
+                {
+                    Book book = db.Books.Where(x => x.Name == name).Single<Book>();
+                    db.Books.Update(book);
+                    db.SaveChanges();
+                    Console.WriteLine($"{name} Updated");
+                }
             }
+            catch (Exception)
+            {
+
+                Console.Clear();
+                Console.WriteLine($"Not Found {name}");
+                Console.WriteLine("----------------");
+            }
+            
         }
     }
 }
